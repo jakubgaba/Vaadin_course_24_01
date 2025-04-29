@@ -1,10 +1,10 @@
 package com.vaadin.training.forms.exercises.ex2;
 
+import java.util.Locale;
+
 import com.vaadin.flow.data.binder.Result;
 import com.vaadin.flow.data.binder.ValueContext;
 import com.vaadin.flow.data.converter.Converter;
-
-import java.util.Locale;
 
 public class CurrencyConverter implements Converter<String, Double> {
 
@@ -17,7 +17,7 @@ public class CurrencyConverter implements Converter<String, Double> {
 		}
 		return valueWithoutSymbol;
 	}
-
+	
 	@Override
 	public Result<Double> convertToModel(String value, ValueContext context) {
 		try {
@@ -27,7 +27,7 @@ public class CurrencyConverter implements Converter<String, Double> {
 			return Result.error(ex.getMessage()) ;
 		}
 	}
-
+	
 	@Override
 	public String convertToPresentation(Double value, ValueContext context) {
 		return String.format(Locale.US, "%1$.2f", value);

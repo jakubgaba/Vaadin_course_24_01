@@ -24,7 +24,7 @@ public class Validation extends VerticalLayout implements HasSize {
     public Validation() {
         // TODO Create a bean class to contain the data with fields, getters and
         // setters for each value needed to bind the three TextFields.
-        Binder binder = new Binder<>(containerClassHolder.class);
+        Binder<containerClassHolder> binder = new Binder<>(containerClassHolder.class);
 
         // TODO Create a Binder typed for the bean class you just created
         // TODO Bind field and add validation to check that the input is a
@@ -32,30 +32,38 @@ public class Validation extends VerticalLayout implements HasSize {
 
         final TextField emailField = new TextField("Email validator");
         binder.forField(emailField).withValidator(new EmailValidator("Looks sus"))
-                .bind(containerClassHolder.getEmailField, containerClassHolder::setEmailField);
-				
+                .bind(containerClassHolder::getEmailField, containerClassHolder::setEmailField);
+		
+
         // TODO Bind field and add validation which accepts strings between 1
         // and 10 in length
         final TextField stringField = new TextField("String length validator");
+        binder.forField(stringField).withValidator( condition -> condition.length() >= 3,
+        "Name must contain at least three characters")
+        .bind(containerClassHolder::getStringField, containerClassHolder::setStringField);
 
         // TODO Bind field and add a custom Validator which only accepts
         // "Vaadin"
         final TextField vaadinField = new TextField("Vaadin validator");
-
+        binder.forField(vaadinField).withValidator(condition -> condition.length() >= 3, "Make it bigger")
+        .bind(containerClassHolder::getVaadinField, containerClassHolder::setVaadinField);
+        
         add(emailField, stringField, vaadinField);
 
     }
 
 }
 
-class containerClassHolder {
+class containerClassHolder{
 
     private String emailField;
     private String stringField;
     private String vaadinField;
 
-    containerClassHolder() {
+    public containerClassHolder() {
     }
+
+    
 
     public String getEmailField() {
         return emailField;
