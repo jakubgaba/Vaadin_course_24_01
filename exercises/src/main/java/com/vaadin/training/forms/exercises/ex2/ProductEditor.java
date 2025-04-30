@@ -35,6 +35,9 @@ public class ProductEditor extends Composite<VerticalLayout> implements HasCompo
             e.printStackTrace();
         }
         }));
+        horizontalLayout.add(new Button("Cancel", saveVal -> {
+            productBinder.readBean(product);
+        }));
 
         add(productLayout,horizontalLayout);
     }
