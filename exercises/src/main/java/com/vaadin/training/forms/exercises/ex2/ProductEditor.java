@@ -20,11 +20,12 @@ public class ProductEditor extends Composite<VerticalLayout> implements HasCompo
         productBinder.forField(productLayout.getAvailable()).bind(Product::getAvailable,Product::setAvailable);
         productBinder.forField(productLayout.getPrice()).withConverter(new CurrencyConverter()).bind(Product::getPrice, Product::setPrice);
         productBinder.forField(productLayout.getName()).bind(Product::getName, Product::setName);
-    
+        
+        
 
         productBinder.readBean(product);
 
-      HorizontalLayout horizontalLayout = new HorizontalLayout();
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
 
         horizontalLayout.add(new Button("Save", saveVal -> {
         try {
